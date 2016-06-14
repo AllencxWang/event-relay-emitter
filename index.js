@@ -7,37 +7,33 @@ function EventRelayEmitter() {
 
 util.inherits(EventRelayEmitter, EventEmitter);
 
-EventRelayEmitter.prototype._relay = function(once, eventName, targetObject, targetEvent, parameters) {
-	this.relayMaps = this.relayMaps || {};
-	this.relayMaps[eventName] = this.relayMaps[eventName] || [];
-	this.relayMaps[eventName].push({
-		once: once,
-		targetObject: targetObject,
-		targetEvent: targetEvent,
-		parameters: parameters
-	});
-};
+EventRelayEmitter.prototype._relay = function(once, eventName, target, targetEventName) {
+	var self = this,
+		args = Array.prototype.slice.call(arguments),
+		relayHandler;
 
-EventRelayEmitter.prototype.relay = function(eventName, targetObject, targetEvent, parameters) {
-	EventRelayEmitter.prototype._relay.call(this, false, eventName, targetObject, targetEvent, parameters);
-};
-
-EventRelayEmitter.prototype.relayOnce = function(eventName, targetObject, targetEvent, parameters) {
-	EventRelayEmitter.prototype._relay.call(this, true, eventName, targetObject, targetEvent, parameters);
-};
-
-EventRelayEmitter.prototype.emit = function() {
-	var args = Array.prototype.slice.call(arguments);
-	var eventName = args[0];
-	
-	EventEmitter.prototype.emit.apply(this, args);
-
-	if( util.isArray(this.relayMaps[eventName]) ) {
-		this.relayMaps[eventName].forEach(function(e) {
-			util.isArray(e.parameters) ? e.parameters.unshift(e.targetEvent) : e.parameters = [e.targetEvent];
-			e.targetObject.emit.apply(e.targetObject, e.parameters);
-		});
+	if(!(target instanceof EventEmitter)) {
+		throw new Error('target is not an instance of EventEmitter');
 	}
+
+	relayHandler = function() {
+		args = Array.prototype.slice.call(arguments);
+		args.unshift(targetEventName);
+		target.emit.apply(target, args);
+		if(once) {
+			self.removeListener(eventName, relayHandler);
+		}
+	};
+	
+	return self.addListener(eventName, relayHandler);
+};
+
+EventRelayEmitter.prototype.relay = function(eventName, target, targetEventName) {
+	return EventRelayEmitter.prototype._relay.call(this, false, eventName, target, targetEventName);
+};
+
+EventRelayEmitter.prototype.relayOnce = function(eventName, target, targetEventName) {
+	return EventRelayEmitter.prototype._relay.call(this, true, eventName, target, targetEventName);
 };
 
 module.exports = EventRelayEmitter;

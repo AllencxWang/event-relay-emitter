@@ -1,10 +1,10 @@
 {
   "name": "EventRelayEmitter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A replacement of EventEmitter with additional event relay ability",
   "main": "index.js",
   "dependencies": {
-    
+
   },
   "devDependencies": {
 
@@ -24,3 +24,4 @@
   "bugs": {
     "url": "https://github.com/AllencxWang/EventRelayEmitter/issues"
   }
+}
