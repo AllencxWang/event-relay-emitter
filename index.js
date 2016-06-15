@@ -1,10 +1,10 @@
 var EventEmitter = require('events'),
-	util = require('util');
+    util = require('util');
 
 function EventRelayEmitter() {
-	if(!(this instanceof EventRelayEmitter)) {
-		return new EventRelayEmitter();
-	}
+    if(!(this instanceof EventRelayEmitter)) {
+        return new EventRelayEmitter();
+    }
     EventEmitter.call(this);
 };
 
@@ -29,7 +29,7 @@ EventRelayEmitter.prototype._relay = function(once, sourceEvent, target, options
             self.removeListener(sourceEvent, relayHandler);
         }
     };
-    
+
     return self.addListener(sourceEvent, relayHandler);
 };
 
