@@ -7,7 +7,7 @@ function EventRelayEmitter() {
 
 util.inherits(EventRelayEmitter, EventEmitter);
 
-EventRelayEmitter.prototype._relay = function(once, sourceEventName, target, targetEventName, parameters) {
+EventRelayEmitter.prototype._relay = function(once, sourceEventName, target, options) {
 	var self = this,
 		args = Array.prototype.slice.call(arguments),
 		relayHandler;
@@ -17,10 +17,10 @@ EventRelayEmitter.prototype._relay = function(once, sourceEventName, target, tar
 	}
 
 	relayHandler = function() {
+		options = options || {};
 		// using parameters.slice() to get a clone, instead of modifying the original one
-		args = util.isArray(parameters) ? parameters.slice() : Array.prototype.slice.call(arguments);
-		targetEventName = targetEventName || sourceEventName;
-		args.unshift(targetEventName);
+		args = util.isArray(options.parameters) ? options.parameters.slice() : Array.prototype.slice.call(arguments);
+		args.unshift(options.targetEventName || sourceEventName);
 		target.emit.apply(target, args);
 		if(once) {
 			self.removeListener(sourceEventName, relayHandler);
@@ -30,12 +30,12 @@ EventRelayEmitter.prototype._relay = function(once, sourceEventName, target, tar
 	return self.addListener(sourceEventName, relayHandler);
 };
 
-EventRelayEmitter.prototype.relay = function(sourceEventName, target, targetEventName, parameters) {
-	return EventRelayEmitter.prototype._relay.call(this, false, sourceEventName, target, targetEventName, parameters);
+EventRelayEmitter.prototype.relay = function(sourceEventName, target, options) {
+	return EventRelayEmitter.prototype._relay.call(this, false, sourceEventName, target, options);
 };
 
-EventRelayEmitter.prototype.relayOnce = function(sourceEventName, target, targetEventName, parameters) {
-	return EventRelayEmitter.prototype._relay.call(this, true, sourceEventName, target, targetEventName, parameters);
+EventRelayEmitter.prototype.relayOnce = function(sourceEventName, target, options) {
+	return EventRelayEmitter.prototype._relay.call(this, true, sourceEventName, target, options);
 };
 
 module.exports = EventRelayEmitter;
