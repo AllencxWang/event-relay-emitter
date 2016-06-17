@@ -84,7 +84,7 @@ Allen.relayOnce('greetings', Richard, { parameters: ['Hello', 'World'] });
 Allen.on('greetings', console.log.bind(null, 'Allen:'));
 Allen.relayOnce('greetings', Curtis, { targetEvent: 'cheers', parameters: ['Yes', 'Baby'] });
 Richard.on('greetings', console.log.bind(null, 'Richard:'));
-Curtis.on('cheer', console.log.bind(null, 'Curtis:'));
+Curtis.on('cheers', console.log.bind(null, 'Curtis:'));
 Allen.emit('greetings', 'Hi');
 
 // [console]
@@ -92,4 +92,7 @@ Allen.emit('greetings', 'Hi');
 // Allen: Hi
 // Curtis: Yes Baby
 ```
+
+You see, the 'greetins' event came from Allen has been redirected to Curtis's 'cheers' event handler, also, as Richard's 'greetings' event handler been triggered, the corresponding parameters was switched to 'Hello' and 'World'.
+
 That's pretty much it, have fun!

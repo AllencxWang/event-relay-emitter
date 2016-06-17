@@ -2,7 +2,7 @@ var EventEmitter = require('events'),
     util = require('util');
 
 function EventRelayEmitter() {
-    if(!(this instanceof EventRelayEmitter)) {
+    if (!(this instanceof EventRelayEmitter)) {
         return new EventRelayEmitter();
     }
     EventEmitter.call(this);
@@ -15,8 +15,8 @@ EventRelayEmitter.prototype._relay = function(once, sourceEvent, target, options
         args = Array.prototype.slice.call(arguments),
         relayHandler;
 
-    if(!(target instanceof EventEmitter)) {
-        throw new Error('target is not an instance of EventRelayEmitter/EventEmitter');
+    if (!(target instanceof EventEmitter)) {
+        throw new TypeError('target must be an EventRelayEmitter or EventEmitter');
     }
 
     relayHandler = function() {
@@ -25,7 +25,7 @@ EventRelayEmitter.prototype._relay = function(once, sourceEvent, target, options
         args = util.isArray(options.parameters) ? options.parameters.slice() : Array.prototype.slice.call(arguments);
         args.unshift(options.targetEvent || sourceEvent);
         target.emit.apply(target, args);
-        if(once) {
+        if (once) {
             self.removeListener(sourceEvent, relayHandler);
         }
     };
