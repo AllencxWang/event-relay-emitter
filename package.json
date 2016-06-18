@@ -3,21 +3,24 @@
   "version": "0.0.6",
   "description": "A replacement of EventEmitter with additional event relay ability",
   "main": "index.js",
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "devDependencies": {
-
+    "jasmine": "^2.4.1"
   },
   "scripts": {
-
+    "test" : "jasmine"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/AllencxWang/EventRelayEmitter.git"
   },
   "keywords": [
-    "event", "signal", "relay", "proxy", "emit", "redirect"
+    "event",
+    "signal",
+    "relay",
+    "proxy",
+    "emit",
+    "redirect"
   ],
   "author": "Allen Wang",
   "license": "MIT",
