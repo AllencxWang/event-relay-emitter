@@ -1,7 +1,8 @@
 EventRelayEmitter
 ====================
 ---
-
+[![Build Status](https://travis-ci.org/AllencxWang/EventRelayEmitter.svg?branch=master)](https://travis-ci.org/AllencxWang/EventRelayEmitter)
+---
 This module is inspired by Qt C++ GUI Framework. In Qt, you can do things like this: connect( &obj1, SIGNAL( signal1() ), &obj2, SIGNAL( signal2() ) ). Once the signal1 from obj1 is emitted, the signal2 from obj2 will be emitted as well.
 
 With JavaScript and Node.js, a simple event relay can be done as below:
@@ -36,8 +37,8 @@ There is no big difference between EventRelayEmitter.relay and EventRelayEmitter
 ## Usage
 ```
 var EventRelayEmitter = require('EventRelayEmitter'),
-	Allen = new EventRelayEmitter(),
-	Richard = new EventRelayEmitter();
+    Allen = new EventRelayEmitter(),
+    Richard = new EventRelayEmitter();
 
 Allen.on('greetings', console.log.bind(null, 'Allen:'));
 Allen.relay('greetings', Richard);
@@ -55,8 +56,8 @@ As you can see, the 'greetings' event invoked from Allen is also relayed to Rich
 
 ```
 var EventRelayEmitter = require('EventRelayEmitter'),
-	Allen = new EventRelayEmitter(),
-	Richard = new EventRelayEmitter();
+    Allen = new EventRelayEmitter(),
+    Richard = new EventRelayEmitter();
 
 Allen.relayOnce('greetings', Richard);
 Allen.on('greetings', console.log.bind(null, 'Allen:'));
@@ -76,9 +77,9 @@ There are 2 difference between the first example and the second one
 Now you know the rule, let's see how options work:
 ```
 var EventRelayEmitter = require('EventRelayEmitter'),
-	Allen = new EventRelayEmitter(),
-	Richard = new EventRelayEmitter(),
-	Curtis = new EventRelayEmitter();
+    Allen = new EventRelayEmitter(),
+    Richard = new EventRelayEmitter(),
+    Curtis = new EventRelayEmitter();
 
 Allen.relayOnce('greetings', Richard, { parameters: ['Hello', 'World'] });
 Allen.on('greetings', console.log.bind(null, 'Allen:'));
