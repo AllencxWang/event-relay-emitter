@@ -3,6 +3,10 @@ EventRelayEmitter
 ---
 [![Build Status](https://travis-ci.org/AllencxWang/EventRelayEmitter.svg?branch=master)](https://travis-ci.org/AllencxWang/EventRelayEmitter)
 ---
+## Installation
+```
+$ npm install EventRelayEmitter
+```
 This module is inspired by Qt C++ GUI Framework. In Qt, you can do things like this: connect( &obj1, SIGNAL( signal1() ), &obj2, SIGNAL( signal2() ) ). Once the signal1 from obj1 is emitted, the signal2 from obj2 will be emitted as well.
 
 With JavaScript and Node.js, a simple event relay can be done as below:
@@ -94,6 +98,6 @@ Allen.emit('greetings', 'Hi');
 // Curtis: Yes Baby
 ```
 
-You see, the 'greetins' event came from Allen has been redirected to Curtis's 'cheers' event handler, also, as Richard's 'greetings' event handler been triggered, the corresponding parameters was switched to 'Hello' and 'World'.
+You see, the 'greetings' event came from Allen has been redirected to Curtis's 'cheers' event handler, also, as Richard's 'greetings' event handler been triggered, the corresponding parameters was switched to 'Hello' and 'World'.
 
 That's pretty much it, have fun!
