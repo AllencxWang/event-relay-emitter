@@ -7,6 +7,7 @@ EventRelayEmitter
 ```
 $ npm install EventRelayEmitter
 ```
+## Background
 This module is inspired by Qt C++ GUI Framework. In Qt, you can do things like this: connect( &obj1, SIGNAL( signal1() ), &obj2, SIGNAL( signal2() ) ). Once the signal1 from obj1 is emitted, the signal2 from obj2 will be emitted as well.
 
 With JavaScript and Node.js, a simple event relay can be done as below:
