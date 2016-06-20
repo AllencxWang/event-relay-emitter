@@ -1,6 +1,6 @@
 {
   "name": "EventRelayEmitter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A replacement of EventEmitter with additional event relay ability",
   "main": "index.js",
   "dependencies": {},
