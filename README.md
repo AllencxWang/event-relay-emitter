@@ -5,7 +5,7 @@ EventRelayEmitter
 ---
 ## Installation
 ```
-$ npm install EventRelayEmitter
+$ npm install event-relay-emitter
 ```
 ## Background
 This module is inspired by Qt C++ GUI Framework. In Qt, you can do things like this: connect( &obj1, SIGNAL( signal1() ), &obj2, SIGNAL( signal2() ) ). Once the signal1 from obj1 is emitted, the signal2 from obj2 will be emitted as well.
@@ -41,64 +41,64 @@ There is no big difference between EventRelayEmitter.relay and EventRelayEmitter
 
 ## Usage
 ```
-var EventRelayEmitter = require('EventRelayEmitter'),
-    Allen = new EventRelayEmitter(),
-    Richard = new EventRelayEmitter();
+var EventRelayEmitter = require('event-relay-emitter'),
+    allen = new EventRelayEmitter(),
+    richard = new EventRelayEmitter();
 
-Allen.on('greetings', console.log.bind(null, 'Allen:'));
-Allen.relay('greetings', Richard);
-Richard.on('greetings', console.log.bind(null, 'Richard:'));
-Allen.emit('greetings', 'Hi');
-Allen.emit('greetings', 'Hello', 'World');
-
-// [console]
-// Allen: Hi
-// Richard: Hi
-// Allen: Hello World
-// Richard: Hello World
-```
-As you can see, the 'greetings' event invoked from Allen is also relayed to Richard. Let's see how EventRelayEmitter.relayOnce works:
-
-```
-var EventRelayEmitter = require('EventRelayEmitter'),
-    Allen = new EventRelayEmitter(),
-    Richard = new EventRelayEmitter();
-
-Allen.relayOnce('greetings', Richard);
-Allen.on('greetings', console.log.bind(null, 'Allen:'));
-Richard.on('greetings', console.log.bind(null, 'Richard:'));
-Allen.emit('greetings', 'Hi');
-Allen.emit('greetings', 'Hello', 'World');
+allen.on('greetings', console.log.bind(null, 'allen:'));
+allen.relay('greetings', richard);
+richard.on('greetings', console.log.bind(null, 'richard:'));
+allen.emit('greetings', 'hey');
+allen.emit('greetings', 'hello', 'world');
 
 // [console]
-// Richard: Hi
-// Allen: Hi
-// Allen: Hello World
+// allen: hey
+// richard: hey
+// allen: hello world
+// richard: hello world
+```
+As you can see, the 'greetings' event invoked from allen is also relayed to richard. Let's see how EventRelayEmitter.relayOnce works:
+
+```
+var EventRelayEmitter = require('event-relay-emitter'),
+    allen = new EventRelayEmitter(),
+    richard = new EventRelayEmitter();
+
+allen.relayOnce('greetings', richard);
+allen.on('greetings', console.log.bind(null, 'allen:'));
+richard.on('greetings', console.log.bind(null, 'richard:'));
+allen.emit('greetings', 'hey');
+allen.emit('greetings', 'hello', 'world');
+
+// [console]
+// richard: hey
+// allen: hey
+// allen: hello world
 ```
 There are 2 difference between the first example and the second one
-+ after swapping the order of Allen.relayOnce(...) and Allen.on(...), the output sequence on the console has changed. (Richard shown before Allen)
-+ the 'greetings' event handler on Richard is not invoked on the second call to Allen.emit(...) 
++ after swapping the order of allen.relayOnce(...) and allen.on(...), the output sequence on the console has changed. (richard shown before allen)
++ the 'greetings' event handler on richard is not invoked on the second call to allen.emit(...) 
 
 Now you know the rule, let's see how options work:
 ```
-var EventRelayEmitter = require('EventRelayEmitter'),
-    Allen = new EventRelayEmitter(),
-    Richard = new EventRelayEmitter(),
-    Curtis = new EventRelayEmitter();
+var EventRelayEmitter = require('event-relay-emitter'),
+    allen = new EventRelayEmitter(),
+    richard = new EventRelayEmitter(),
+    curtis = new EventRelayEmitter();
 
-Allen.relayOnce('greetings', Richard, { parameters: ['Hello', 'World'] });
-Allen.on('greetings', console.log.bind(null, 'Allen:'));
-Allen.relayOnce('greetings', Curtis, { targetEvent: 'cheers', parameters: ['Yes', 'Baby'] });
-Richard.on('greetings', console.log.bind(null, 'Richard:'));
-Curtis.on('cheers', console.log.bind(null, 'Curtis:'));
-Allen.emit('greetings', 'Hi');
+allen.relayOnce('greetings', richard, { parameters: ['hello', 'world'] });
+allen.on('greetings', console.log.bind(null, 'allen:'));
+allen.relayOnce('greetings', curtis, { targetEvent: 'cheers', parameters: ['yes', 'baby'] });
+richard.on('greetings', console.log.bind(null, 'richard:'));
+curtis.on('cheers', console.log.bind(null, 'curtis:'));
+allen.emit('greetings', 'hey');
 
 // [console]
-// Richard: Hello World
-// Allen: Hi
-// Curtis: Yes Baby
+// richard: hello world
+// allen: hey
+// curtis: yes baby
 ```
 
-You see, the 'greetings' event came from Allen has been redirected to Curtis's 'cheers' event handler, also, as Richard's 'greetings' event handler been triggered, the corresponding parameters was switched to 'Hello' and 'World'.
+You see, the 'greetings' event came from allen has been redirected to curtis's 'cheers' event handler, also, as richard's 'greetings' event handler been triggered, the corresponding parameters was switched to 'hello' and 'world'.
 
 That's pretty much it, have fun!
