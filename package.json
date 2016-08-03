@@ -1,5 +1,5 @@
 {
-  "name": "evnt-relay-emitter",
+  "name": "event-relay-emitter",
   "version": "1.0.0",
   "description": "A replacement of EventEmitter with additional event relay ability",
   "main": "index.js",
