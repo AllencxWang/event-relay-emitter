@@ -1,7 +1,7 @@
 event-relay-emitter
 ====================
 ---
-[![Build Status](https://travis-ci.org/AllencxWang/EventRelayEmitter.svg?branch=master)](https://travis-ci.org/AllencxWang/EventRelayEmitter)
+[![Build Status](https://travis-ci.org/AllencxWang/event-relay-emitter.svg?branch=master)](https://travis-ci.org/AllencxWang/event-relay-emitter)
 ---
 ## Installation
 ```
